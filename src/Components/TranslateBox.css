@@ -1,0 +1,33 @@
+.content-container{
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    background-color: #ececec;
+    border-radius: 5px;
+    height: 245px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+}
+
+.translate-container{
+    padding: 5px;
+    width: 50%;
+}
+
+.translate-header{
+    margin-bottom: 5px;
+}
+.translate-textbox{
+    height: 85%;
+}
+
+textarea{
+    font-size: 24px;
+    resize: none;
+    width: 100%;
+    height: 100%;
+}
+
+span{
+    font-weight: bold;
+    font-size: 24px;
+}
