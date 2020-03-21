@@ -28,14 +28,14 @@ class Translator():  #class to hold source and target fields, and handle tokenis
         self.SRC.build_vocab(data, min_freq = 2)
         self.TRG.build_vocab(data, min_freq = 2)
 
-    def get_eos_position(self, tensor, field):
-        for position, tok_idx in enumerate(tensor):
-            tok_idx = int(tok_idx)
-            token = field.vocab.itos[tok_idx]
+    # def get_eos_position(self, tensor, field):
+    #     for position, tok_idx in enumerate(tensor):
+    #         tok_idx = int(tok_idx)
+    #         token = field.vocab.itos[tok_idx]
         
-            if token == '<eos>' or token == '<pad>':
-                break
-        return position
+    #         if token == '<eos>' or token == '<pad>':
+    #             break
+    #     return position
 
     def get_text_from_tensor(self, tensor, field, eos='<eos>'):
         batch_output = []
@@ -56,13 +56,12 @@ class Translator():  #class to hold source and target fields, and handle tokenis
             batch_output.append(words)
         return batch_output
 
-    def translate(self, model, text):
+    def __call__(self, model, text):
         tokens = self.SRC.preprocess(text)
         input_tensor = self.SRC.process([tokens])
         
         with torch.no_grad():
             outputs, _ = model.greedy_search(input_tensor, self.TRG.vocab.stoi['<sos>'], return_attention=True)
-            eos_position = self.get_eos_position(outputs.squeeze(1), self.TRG)    
             output_text = self.get_text_from_tensor(outputs, self.TRG)
         return output_text
 

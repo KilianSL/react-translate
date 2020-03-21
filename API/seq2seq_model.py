@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.functional as F
 import random
 
 class Seq2seq(nn.Module):
